@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('cruds', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
+            $table->string('book_name');
+            $table->string('book_price');
+            $table->string('author_name');
+            $table->string('book_description');
             $table->timestamps();
         });
     }

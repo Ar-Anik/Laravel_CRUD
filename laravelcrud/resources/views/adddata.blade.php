@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title> Show Data </title>
+    <title> Add Data </title>
   </head>
   <body>
 
@@ -57,40 +57,62 @@
     <br>
     <div class="container">
 
-        <a href="{{url('/adddata')}}" class="btn btn-primary my-3"> Add Data </a>
+        <a href="{{url('/')}}" class="btn btn-primary my-3"> Show Data </a>
 
-    <table class="table">
-    <thead>
-       <tr>
-         <th scope="col">#</th>
-         <th scope="col">First</th>
-         <th scope="col">Last</th>
-         <th scope="col">Handle</th>
-       </tr>
-    </thead>
-    <tbody>
-        <tr>
-         <th scope="row">1</th>
-         <td>Mark</td>
-         <td>Otto</td>
-         <td>@mdo</td>
-        </tr>
+        <form action="{{url('/storedata')}}" method="post">
+          @csrf
 
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
+         <!-- Error Message -->
+         <!-- @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+          </div>
+         @endif -->
+        <!-- End Error Message -->
+         
+        <div class="form-group">
+            <label for="">Book Name</label>
+            <input type="text" class="form-control" name="book_name" placeholder="Enter Book Name">
 
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-     </tbody>
-    </table>
-    
+            @error('book_name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="">Price</label>
+            <input type="text" class="form-control" name="book_price" placeholder="Enter Book Price">
+
+            @error('book_price')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="">Author Name</label>
+            <input type="text" class="form-control" name="author_name" placeholder="Enter Author Name">
+            
+            @error('author_name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="">Book Description</label>
+            <input type="text" class="form-control" name="book_description" placeholder="Enter Book Description">
+
+            @error('book_description')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <input type="submit" class="btn btn-primary my-3" value="submit">
+        </from>
+
     </div>
     <br>
     <br>
