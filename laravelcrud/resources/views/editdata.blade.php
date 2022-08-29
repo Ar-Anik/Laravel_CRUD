@@ -56,7 +56,7 @@
 
         <a href="{{url('/')}}" class="btn btn-primary my-3"> Show Data </a>
 
-        <form action="{{url('/storedata')}}" method="post">
+        <form action="{{url('/updatedata/'.$editData->id)}}" method="post">
           @csrf
 
          <!-- Error Message -->
@@ -73,7 +73,7 @@
          
         <div class="form-group">
             <label for="">Book Name</label>
-            <input type="text" class="form-control" name="book_name" placeholder="Enter Book Name">
+            <input type="text" class="form-control" name="book_name" value="{{ $editData->book_name }}" placeholder="Enter Book Name">
 
             @error('book_name')
             <span class="text-danger">{{$message}}</span>
@@ -82,7 +82,7 @@
 
         <div class="form-group">
             <label for="">Price</label>
-            <input type="text" class="form-control" name="book_price" placeholder="Enter Book Price">
+            <input type="text" class="form-control" name="book_price" value="{{ $editData->book_price }}" placeholder="Enter Book Price">
 
             @error('book_price')
             <span class="text-danger">{{$message}}</span>
@@ -91,7 +91,7 @@
 
         <div class="form-group">
             <label for="">Author Name</label>
-            <input type="text" class="form-control" name="author_name" placeholder="Enter Author Name">
+            <input type="text" class="form-control" name="author_name" value="{{ $editData->author_name }}" placeholder="Enter Author Name">
             
             @error('author_name')
             <span class="text-danger">{{$message}}</span>
@@ -100,7 +100,7 @@
 
         <div class="form-group">
             <label for="">Book Description</label>
-            <input type="text" class="form-control" name="book_description" placeholder="Enter Book Description">
+            <input type="text" class="form-control" name="book_description" value="{{ $editData->book_description }}" placeholder="Enter Book Description">
 
             @error('book_description')
             <span class="text-danger">{{$message}}</span>

@@ -15,10 +15,9 @@
     <!-- ############### Navber ############# -->
 
     <div class="container">
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#">Library</a>
+    <a class="navbar-brand" href="#"><b>Library</b></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,13 +29,11 @@
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Authentication
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#"> Login </a></li>
+            <li><a class="dropdown-item" href="#"> Registration </a></li>
           </ul>
         </li>
 
@@ -57,40 +54,63 @@
     <br>
     <div class="container">
 
+    @if(Session::has('msg'))
+      <p class="alert alert-success"> {{ Session::get('msg') }} </p>
+    @endif
         <a href="{{url('/adddata')}}" class="btn btn-primary my-3"> Add Data </a>
 
-    <table class="table">
+    <table class="table table-bordered">
+    
     <thead>
        <tr>
-         <th scope="col">#</th>
-         <th scope="col">First</th>
-         <th scope="col">Last</th>
-         <th scope="col">Handle</th>
+         <th scope="col" style="text-align:center">ID</th>
+         <th scope="col" style="text-align:center">Name</th>
+         <th scope="col" style="text-align:center">Price</th>
+         <th scope="col" style="text-align:center">Author</th>
+         <th scope="col" style="text-align:center">Description</th>
+         <th scope="col" style="text-align:center">Information Update</th>
+         <th scope="col" style="text-align:center">Information Delete</th>
        </tr>
     </thead>
+
     <tbody>
+      @foreach($showData as $key=>$data)
         <tr>
-         <th scope="row">1</th>
-         <td>Mark</td>
-         <td>Otto</td>
-         <td>@mdo</td>
-        </tr>
+         <td style="text-align:center"> 
+            {{ $key+1 }}
+         </td>
+         
+         <td style="text-align:center"> 
+            {{ $data->book_name }}
+         </td>
+         
+         <td style="text-align:center"> 
+            {{ $data->book_price }}
+         </td>
+         
+         <td style="text-align:center"> 
+            {{ $data->author_name }}
+         </td>
+         
+         <td style="text-align:center"> 
+            {{ $data->book_description }}
+         </td>
+         
+         <td style="text-align:center">
+            <a href="{{ url('/editdata/'.$data->id) }}" class="btn btn-outline-warning">Update</a>
+         </td>
 
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
+         <td style="text-align:center">
+            <a href="{{ url('/deletedata/'.$data->id) }}" class="btn btn-outline-danger">Delete</a>
+         </td>
 
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
         </tr>
+      @endforeach
      </tbody>
     </table>
-    
+
+    {{ $showData->links() }}
+
     </div>
     <br>
     <br>
@@ -234,6 +254,8 @@
       <p>Hola</p>
 
     </div>
+
+
     <!-- Grid column -->
 
     <hr class="clearfix w-100 d-md-none">
@@ -247,22 +269,23 @@
       <ul class="list-unstyled">
         <li>
           <p>
-            <a href="#!">PROJECTS</a>
+            <a href="" style="color:white">PROJECTS</a>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <a href="" style="color:white">ABOUT US</a>
           </p>
         </li>
         <li>
           <p>
-            <a href="#!">ABOUT US</a>
+            <a href="" style="color:white">BLOG</a>
           </p>
         </li>
         <li>
           <p>
-            <a href="#!">BLOG</a>
-          </p>
-        </li>
-        <li>
-          <p>
-            <a href="#!">AWARDS</a>
+            <a href="" style="color:white">AWARDS</a>
           </p>
         </li>
       </ul>
@@ -332,7 +355,7 @@
 
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">© 2022 Copyright:
-  <a href="https://github.com/Ar-Anik"> Aubdur Rob Anik </a>
+  <a href="https://github.com/Ar-Anik" style="color:white"> Aubdur Rob Anik </a>
 </div>
 
 <!-- Copyright -->

@@ -21,3 +21,6 @@ use App\Http\Controllers\crudcontroller;
 Route::get('/', [crudcontroller::class, 'showData']);
 Route::get('/adddata', [crudcontroller::class, 'addData']);
 Route::post('/storedata', [crudcontroller::class, 'storeData']);
+Route::get('/editdata/{id}', [crudcontroller::class, 'editData']);
+Route::post('/updatedata/{id}', [crudcontroller::class, 'updateData']);
+Route::get('/deletedata/{id}', [crudcontroller::class, 'deleteData']);
