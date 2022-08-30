@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\crudcontroller;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,16 @@ use App\Http\Controllers\crudcontroller;
 //     return view('welcome');
 // });
 
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index']);
+
 Route::get('/', [crudcontroller::class, 'showData']);
-Route::get('/adddata', [crudcontroller::class, 'addData']);
-Route::post('/storedata', [crudcontroller::class, 'storeData']);
-Route::get('/editdata/{id}', [crudcontroller::class, 'editData']);
-Route::post('/updatedata/{id}', [crudcontroller::class, 'updateData']);
-Route::get('/deletedata/{id}', [crudcontroller::class, 'deleteData']);
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/adddata', [crudcontroller::class, 'addData']);
+    Route::post('/storedata', [crudcontroller::class, 'storeData']);
+    Route::get('/editdata/{id}', [crudcontroller::class, 'editData']);
+    Route::post('/updatedata/{id}', [crudcontroller::class, 'updateData']);
+    Route::get('/deletedata/{id}', [crudcontroller::class, 'deleteData']);
+});

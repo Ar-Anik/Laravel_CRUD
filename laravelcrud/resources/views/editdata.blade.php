@@ -17,25 +17,45 @@
     <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#"><b>Library</b></a>
+    <a class="navbar-brand" href="{{url('/')}}"><b>Library</b></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        
+
+        @if (Auth::check())
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{Auth::user()->name}}
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
+          </ul>
+          
+        </li>
+          @else
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Authentication
           </a>
+          
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#"> Login </a></li>
-            <li><a class="dropdown-item" href="#"> Registration </a></li>
+            <li><a class="dropdown-item" href="{{url('/login')}}">Login</a></li>
+            <li><a class="dropdown-item" href="{{url('/register')}}">Registration</a></li>
           </ul>
+          
         </li>
+          @endif
 
       </ul>
       <form class="d-flex">
@@ -111,8 +131,6 @@
         </from>
 
     </div>
-    <br>
-    <br>
 
     <!-- ################## End Table ################ -->
 
@@ -351,7 +369,7 @@
 
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">© 2022 Copyright:
-  <a href="https://github.com/Ar-Anik"> Aubdur Rob Anik </a>
+  <a href="https://github.com/Ar-Anik" style="color:white"> Aubdur Rob Anik </a>
 </div>
 
 <!-- Copyright -->

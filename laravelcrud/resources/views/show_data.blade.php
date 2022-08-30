@@ -17,25 +17,45 @@
     <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#"><b>Library</b></a>
+    <a class="navbar-brand" href="{{url('/')}}"><b>Library</b></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        
+
+        @if (Auth::check())
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{Auth::user()->name}}
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
+          </ul>
+          
+        </li>
+          @else
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Authentication
           </a>
+          
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#"> Login </a></li>
-            <li><a class="dropdown-item" href="#"> Registration </a></li>
+            <li><a class="dropdown-item" href="{{url('/login')}}">Login</a></li>
+            <li><a class="dropdown-item" href="{{url('/register')}}">Registration</a></li>
           </ul>
+          
         </li>
+          @endif
 
       </ul>
       <form class="d-flex">
@@ -54,11 +74,12 @@
     <br>
     <div class="container">
 
+    @if(Auth::check())
     @if(Session::has('msg'))
       <p class="alert alert-success"> {{ Session::get('msg') }} </p>
     @endif
         <a href="{{url('/adddata')}}" class="btn btn-primary my-3"> Add Data </a>
-
+    @endif 
     <table class="table table-bordered">
     
     <thead>
@@ -68,8 +89,10 @@
          <th scope="col" style="text-align:center">Price</th>
          <th scope="col" style="text-align:center">Author</th>
          <th scope="col" style="text-align:center">Description</th>
-         <th scope="col" style="text-align:center">Information Update</th>
-         <th scope="col" style="text-align:center">Information Delete</th>
+         @if(Auth::check())
+          <th scope="col" style="text-align:center">Information Update</th>
+          <th scope="col" style="text-align:center">Information Delete</th>
+         @endif
        </tr>
     </thead>
 
@@ -95,7 +118,7 @@
          <td style="text-align:center"> 
             {{ $data->book_description }}
          </td>
-         
+         @if(Auth::check())
          <td style="text-align:center">
             <a href="{{ url('/editdata/'.$data->id) }}" class="btn btn-outline-warning">Update</a>
          </td>
@@ -103,7 +126,7 @@
          <td style="text-align:center">
             <a href="{{ url('/deletedata/'.$data->id) }}" class="btn btn-outline-danger">Delete</a>
          </td>
-
+        @endif
         </tr>
       @endforeach
      </tbody>
@@ -112,8 +135,6 @@
     {{ $showData->links() }}
 
     </div>
-    <br>
-    <br>
 
 
     <!-- ################## End Table ################ -->
