@@ -16,3 +16,6 @@ php artisan make:model crud -m
 
 # Create Controller
 php artisan make:controller crudcontroller
+
+# For Run Serve
+php artisan serve
